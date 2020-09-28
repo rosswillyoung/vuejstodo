@@ -3,6 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <style>
+      .done {
+        text-decoration: line-through;
+      }
+    </style>
   </head>
   <body>
 
@@ -11,9 +16,18 @@
       <!-- adding .prevent, vue prevents default action -->
       <form @submit.prevent='addTodo'>
         <label for="newTodo">New Todo</label>
-        <input type="text" name='newTodo' id='newTodo'>
+        <input v-model='newTodo' type="text" name='newTodo' id='newTodo'>
         <button type='submit' name='button'>Add</button>
       </form>
+      <button @click="allDone" type="button">All Done</button>
+      <ul>
+        <li v-for="todo in todos">
+          <input type="checkbox" v-model="todo.done">
+          <span :class='{ done: todo.done }'>{{todo.title}}</span>
+          <button @click='removeTodo(todo)' type='button'>Remove</button>
+        </li>
+      </ul>
+      <h4>{{newTodo}}</h4>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
     </script>
